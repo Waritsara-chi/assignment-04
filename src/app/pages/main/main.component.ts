@@ -47,7 +47,9 @@ export class MainComponent implements OnInit {
 
   type = ['movie', 'series', 'episode'];
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(private apiService: ApiService, private router: Router) {
+
+  }
 
   page: number = this.apiService.page;
 
@@ -91,16 +93,17 @@ export class MainComponent implements OnInit {
     if (this.searchForm) {
       this.titles = await this.apiService.getTitleByName(this.searchName, this.page);
       this.SearchTitle = this.titles.Search;
-      console.log(this.SearchTitle);
+      // console.log(this.SearchTitle);
 
     } else if (this.selectForm) {
       this.titles = await this.apiService.getTitleP(this.page, this.selectedValue);
       this.SearchTitle = this.titles.Search;
-      console.log(this.SearchTitle);
+      // console.log(this.SearchTitle);
       
     } else {
       this.titles = await this.apiService.getTitleP(this.page);
       this.SearchTitle = this.titles.Search;
+      console.log(this.SearchTitle);
     }
     
     if (this.idForm) {
@@ -205,21 +208,22 @@ export class MainComponent implements OnInit {
     await this.loadDataAsync();
 }
 
-  destroySession(): void {
+async destroySession(): Promise<void> {
+  console.log("BACkBACK");
 
-    console.log("BACkBACK");
-    
-    // ทำการเชื่อมโยงไปยังหน้าแรก
-    this.router.navigate(['']);
-    sessionStorage.removeItem('search');
-    sessionStorage.removeItem('currentPage');
-    sessionStorage.removeItem('searchForm');
-    sessionStorage.removeItem('selectForm');
-    sessionStorage.removeItem('id');
-    sessionStorage.removeItem('idForm');
-    sessionStorage.removeItem('type'); // ลบค่า selectForm จาก sessionStorage
-    // sessionStorage.clear;
-   
+  sessionStorage.removeItem('search');
+  sessionStorage.removeItem('currentPage');
+  sessionStorage.removeItem('searchForm');
+  sessionStorage.removeItem('selectForm');
+  sessionStorage.removeItem('id');
+  sessionStorage.removeItem('idForm');
+  sessionStorage.removeItem('type'); 
 
-  }
+  this.page = 1;
+  this.Imdbs = [];
+  this.TitleByID = [];
+  this.searchForm = false;
+
+  await this.loadDataAsync();
+}
 }
