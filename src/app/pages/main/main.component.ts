@@ -211,14 +211,14 @@ export class MainComponent implements OnInit {
     
     // ทำการเชื่อมโยงไปยังหน้าแรก
     this.router.navigate(['']);
-    // sessionStorage.removeItem('search');
-    // sessionStorage.removeItem('currentPage');
-    // sessionStorage.removeItem('searchForm');
-    // sessionStorage.removeItem('selectForm');
-    // sessionStorage.removeItem('id');
-    // sessionStorage.removeItem('idForm');
-    // sessionStorage.removeItem('type'); // ลบค่า selectForm จาก sessionStorage
-    sessionStorage.clear;
+    sessionStorage.removeItem('search');
+    sessionStorage.removeItem('currentPage');
+    sessionStorage.removeItem('searchForm');
+    sessionStorage.removeItem('selectForm');
+    sessionStorage.removeItem('id');
+    sessionStorage.removeItem('idForm');
+    sessionStorage.removeItem('type'); // ลบค่า selectForm จาก sessionStorage
+    // sessionStorage.clear;
    
 
   }
