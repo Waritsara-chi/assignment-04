@@ -69,17 +69,28 @@ export class ApiService {
     const response = await firstValueFrom(
       this.http.get(this.url, {
         params: {
-          s: name,
+          s: name.join(','), // รวม array ของชื่อเป็น string โดยใช้เครื่องหมายคอมม่า
           plot: 'movie',
           page: page || 1,
         },
       })
     );
-    // console.log(response);
-    
-
-    return response as GetMovieP;
+  
+    // กรองเฉพาะหนังที่มีชื่อตรงกับ parameter name ที่ส่งมา
+    const searchTerm = name[0].toLowerCase();
+    const filteredMovies = (response as GetMovieP).Search.filter(movie => movie.Title.toLowerCase() === searchTerm);
+  
+    // ถ้ามีหนังที่มีชื่อตรงกับ name ที่ส่งมา แสดงเพียงเรื่องเดียว
+    if (filteredMovies.length > 0) {
+      return { Search: filteredMovies } as GetMovieP;
+    } else {
+      // ถ้าไม่มีหนังที่มีชื่อตรงกับ name ที่ส่งมา ให้ค้นหาหนังที่มีส่วนของชื่อตรงกับ name
+      const partialFilteredMovies = (response as GetMovieP).Search.filter(movie => movie.Title.toLowerCase().includes(searchTerm));
+      return { Search: partialFilteredMovies } as GetMovieP;
+    }
   }
+  
+  
 
   public async getTitleByID(id: string[], page?: number) {
     const response = await firstValueFrom(
