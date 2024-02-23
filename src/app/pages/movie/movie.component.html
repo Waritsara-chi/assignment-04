@@ -1,0 +1,32 @@
+<div  style="display: flex; flex-direction: row; margin-left: auto; margin-right: auto;width: 60%; margin-top: 2%;">
+    <button mat-flat-button color="warn" (click)="goBack()"> < Back</button>
+</div>
+<div style="display: flex; flex-direction: row; margin-left: auto; margin-right: auto;width: 60%; margin-top: 1%; border: 1px solid black;">
+    <div style="width: 30vw;">
+        <img src="{{movie?.Poster}}" alt="poster" width="500vw">
+    </div>
+    <div style="width: 50%;">
+        <h1>{{movie?.Title}}</h1>
+        <p style="font-weight: bold;">{{movie?.Type}}  |  {{movie?.Rated}}  |  {{movie?.Runtime}}</p>
+        <p>{{movie?.Plot}}</p>
+        <p  style="font-weight: bold;">Genre : </p>
+        <div  style="display: flex; flex-direction: row; width: 100%;">
+            <div *ngFor="let gen of movie?.Genre?.split(',')" style="margin-right: 2%;">
+                <button mat-stroked-button color="primary">{{gen}}</button>
+            </div>
+        </div>
+        <p style="font-weight: bold;">Actors : </p>
+        <div  style="display: flex; flex-direction: row; width: 100%;">
+            <div *ngFor="let actor of movie?.Actors?.split(',')" style="margin-right: 2%;">
+                <button mat-stroked-button color="accent">{{actor}}</button>
+            </div>
+        </div>
+        <p  style="font-weight: bold;">Writers : </p>
+        <div  style="display: flex; flex-direction: row; width: 100%;">
+            <div *ngFor="let writer of movie?.Writer?.split(',')" style="margin-right: 2%;">
+                <button mat-stroked-button color="warn">{{writer}}</button>
+            </div>
+        </div>
+       
+    </div>
+</div>
